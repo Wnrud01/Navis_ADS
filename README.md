@@ -42,11 +42,34 @@ pip install -r requirements.txt
 
 ---
 
-## 🚀 렌더링 실행 방법 (Usage)
+## 📊 모션 플래닝 평가 방식 (Planning Evaluation Standards)
 
-가상환경이 활성화된 상태에서 아래 명령어로 시나리오 렌더링을 실행할 수 있습니다:
+본 프로젝트는 **DX Challenge 공식 모션 플래닝 평가 및 RideFlux Score 규격**을 준수합니다.
 
-### 기본 렌더링 구동
+### 1. RideFlux Score (종합 플래닝 점수)
+$$\text{RideFlux Score} = \frac{7 \cdot \text{Progress Ratio} + 3 \cdot \text{Comfort}}{10} \times (1 - \text{Overlap}) \times (1 - \text{Offroad})$$
+
+* **Progress Ratio (진행률 - 70% 가중치)**: 목적지까지 전진한 거리에 비례하는 비율 (0.0 ~ 1.0)
+* **Comfort Score (승차감 - 30% 가중치)**: 허용 가속도 및 Jerk 기준을 만족하는 승차감 적정 타임스텝 비율 (0.0 ~ 1.0)
+* **Overlap Gate (충돌 게이트)**: 주변 차량/보행자와 충돌 시 해당 에피소드 **0점 처리**
+* **Offroad Gate (도로 이탈 게이트)**: 도로 경계 이탈 시 해당 에피소드 **0점 처리**
+
+### 2. Error Score (미래 궤적 예측 오차 및 추론 속도)
+$$\text{Error Score} = \frac{1}{2} (\text{minADE}_1 + \text{minADE}_6) \times \left(1 + \frac{\max(0, T_{\text{infer}} - 100)}{200}\right)$$
+
+* **minADE₁ / minADE₆**: Top-1 및 Top-6 대표 궤적 오차 (m)
+* **T_infer (추론 속도)**: 100ms 초과 시 속도 벌점 배율 부여
+
+---
+
+## 🚀 렌더링 및 평가 실행 방법 (Usage)
+
+### 1. 모션 플래닝 평가 실행
+```bash
+python evaluate_planning.py
+```
+
+### 2. 시나리오 렌더링 구동
 ```bash
 python render_waymo_scenario.py
 ```
