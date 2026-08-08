@@ -1,0 +1,25 @@
+# Navis_ADS - Waymax & Waymo Scenario Renderer Environment Requirements
+# ======================================================================
+
+# Core ML & Simulation Frameworks
+tensorflow>=2.12.0
+jax>=0.4.10
+jaxlib>=0.4.10
+flax>=0.7.0
+chex>=0.1.7
+
+# Waymo Datasets & Simulator
+waymo-open-dataset-tf-2-12-0>=1.6.0
+git+https://github.com/waymo-research/waymax.git
+
+# Visualization & Image Processing
+matplotlib>=3.7.0
+pillow>=9.5.0
+mediapy>=1.1.0
+numpy>=1.24.0
+
+# Utilities
+absl-py>=1.4.0
+protobuf>=3.20.0
+requests>=2.31.0
+tqdm>=4.65.0
